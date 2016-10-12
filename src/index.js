@@ -1,6 +1,13 @@
 export class SentryAppender {
-  constructor() {
+  constructor(config) {
     // @TODO: Maybe do something here to check for Raven?
+    // If a config was given
+    if (config) {
+      // if the usercontext was given
+      if (config.userContext) {
+        this.setUserContext(config.userContext);
+      }
+    }
   }
 
   error(logger, error) {
@@ -37,5 +44,13 @@ export class SentryAppender {
 
   getRaven() {
     return window.Raven;
+  }
+
+  setUserContext (userContext) {
+    let raven = this.getRaven();
+
+    if (typeof raven !== 'undefined') {
+      raven.setUserContext(userContext);
+    }
   }
 }

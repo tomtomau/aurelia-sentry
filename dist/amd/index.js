@@ -12,8 +12,14 @@ define(['exports'], function (exports) {
   }
 
   var SentryAppender = function () {
-    function SentryAppender() {
+    function SentryAppender(config) {
       _classCallCheck(this, SentryAppender);
+
+      if (config) {
+        if (config.userContext) {
+          this.setUserContext(config.userContext);
+        }
+      }
     }
 
     SentryAppender.prototype.error = function error(logger, _error) {
@@ -50,6 +56,14 @@ define(['exports'], function (exports) {
 
     SentryAppender.prototype.getRaven = function getRaven() {
       return window.Raven;
+    };
+
+    SentryAppender.prototype.setUserContext = function setUserContext(userContext) {
+      var raven = this.getRaven();
+
+      if (typeof raven !== 'undefined') {
+        raven.setUserContext(userContext);
+      }
     };
 
     return SentryAppender;

@@ -1,5 +1,11 @@
 export let SentryAppender = class SentryAppender {
-  constructor() {}
+  constructor(config) {
+    if (config) {
+      if (config.userContext) {
+        this.setUserContext(config.userContext);
+      }
+    }
+  }
 
   error(logger, error) {
     let raven = this.getRaven();
@@ -35,5 +41,13 @@ export let SentryAppender = class SentryAppender {
 
   getRaven() {
     return window.Raven;
+  }
+
+  setUserContext(userContext) {
+    let raven = this.getRaven();
+
+    if (typeof raven !== 'undefined') {
+      raven.setUserContext(userContext);
+    }
   }
 };

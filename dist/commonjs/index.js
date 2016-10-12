@@ -7,8 +7,14 @@ Object.defineProperty(exports, "__esModule", {
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var SentryAppender = function () {
-  function SentryAppender() {
+  function SentryAppender(config) {
     _classCallCheck(this, SentryAppender);
+
+    if (config) {
+      if (config.userContext) {
+        this.setUserContext(config.userContext);
+      }
+    }
   }
 
   SentryAppender.prototype.error = function error(logger, _error) {
@@ -45,6 +51,14 @@ var SentryAppender = function () {
 
   SentryAppender.prototype.getRaven = function getRaven() {
     return window.Raven;
+  };
+
+  SentryAppender.prototype.setUserContext = function setUserContext(userContext) {
+    var raven = this.getRaven();
+
+    if (typeof raven !== 'undefined') {
+      raven.setUserContext(userContext);
+    }
   };
 
   return SentryAppender;

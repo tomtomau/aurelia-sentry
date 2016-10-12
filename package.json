@@ -4,19 +4,18 @@
   "description": "An Aurelia Sentry/Raven LogAppender.",
   "keywords": [
     "aurelia",
-    "plugin",
-    "skeleton"
+    "logging"
   ],
-  "homepage": "http://aurelia.io",
+  "homepage": "http://tomnewby.net",
   "bugs": {
-    "url": "https://github.com/aurelia/skeleton-plugin/issues"
+    "url": "https://github.com/tomtomau/aurelia-sentry"
   },
   "license": "CC0-1.0",
-  "author": "Rob Eisenberg <rob@bluespire.com> (http://robeisenberg.com/)",
+  "author": "Tom Newby <me@tomnewby.net>",
   "main": "dist/commonjs/index.js",
   "repository": {
     "type": "git",
-    "url": "http://github.com/aurelia/skeleton-plugin"
+    "url": "https://github.com/tomtomau/aurelia-sentry"
   },
   "devDependencies": {
     "aurelia-tools": "^0.2.3",

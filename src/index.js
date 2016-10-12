@@ -1,13 +1,14 @@
+import { inject } from 'aurelia-framework';
+import { EventAggregator } from 'aurelia-event-aggregator';
+
+@inject(EventAggregator)
 export class SentryAppender {
-  constructor(config) {
+  constructor(ea) {
     // @TODO: Maybe do something here to check for Raven?
-    // If a config was given
-    if (config) {
-      // if the usercontext was given
-      if (config.userContext) {
-        this.setUserContext(config.userContext);
-      }
-    }
+    if (!ea) ea = new EventAggregator();
+    this._eventSubscription = ea.subscribe('sentry:user-context:set', (data) => {
+      this.setUserContext(data);
+    });
   }
 
   error(logger, error) {
@@ -46,7 +47,7 @@ export class SentryAppender {
     return window.Raven;
   }
 
-  setUserContext (userContext) {
+  setUserContext(userContext) {
     let raven = this.getRaven();
 
     if (typeof raven !== 'undefined') {

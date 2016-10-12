@@ -1,9 +1,10 @@
-define(['exports'], function (exports) {
+define(['exports', 'aurelia-framework', 'aurelia-event-aggregator'], function (exports, _aureliaFramework, _aureliaEventAggregator) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
+  exports.SentryAppender = undefined;
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -11,15 +12,18 @@ define(['exports'], function (exports) {
     }
   }
 
-  var SentryAppender = function () {
-    function SentryAppender(config) {
+  var _dec, _class;
+
+  var SentryAppender = (_dec = (0, _aureliaFramework.inject)(_aureliaEventAggregator.EventAggregator), _dec(_class = function () {
+    function SentryAppender(ea) {
+      var _this = this;
+
       _classCallCheck(this, SentryAppender);
 
-      if (config) {
-        if (config.userContext) {
-          this.setUserContext(config.userContext);
-        }
-      }
+      if (!ea) ea = new _aureliaEventAggregator.EventAggregator();
+      this._eventSubscription = ea.subscribe('sentry:user-context:set', function (data) {
+        _this.setUserContext(data);
+      });
     }
 
     SentryAppender.prototype.error = function error(logger, _error) {
@@ -67,7 +71,6 @@ define(['exports'], function (exports) {
     };
 
     return SentryAppender;
-  }();
-
+  }()) || _class);
   exports.SentryAppender = SentryAppender;
 });

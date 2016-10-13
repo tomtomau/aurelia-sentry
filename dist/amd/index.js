@@ -1,9 +1,10 @@
-define(['exports'], function (exports) {
+define(['exports', 'aurelia-framework', 'aurelia-event-aggregator'], function (exports, _aureliaFramework, _aureliaEventAggregator) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
+  exports.SentryAppender = undefined;
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -11,9 +12,20 @@ define(['exports'], function (exports) {
     }
   }
 
-  var SentryAppender = function () {
-    function SentryAppender() {
+  var _dec, _class;
+
+  var USER_CONTEXT_EVENT = 'sentry:user-context:set';
+
+  var SentryAppender = (_dec = (0, _aureliaFramework.inject)(_aureliaEventAggregator.EventAggregator), _dec(_class = function () {
+    function SentryAppender(ea) {
+      var _this = this;
+
       _classCallCheck(this, SentryAppender);
+
+      if (!ea) ea = new _aureliaEventAggregator.EventAggregator();
+      this._eventSubscription = ea.subscribe(USER_CONTEXT_EVENT, function (data) {
+        _this.setUserContext(data);
+      });
     }
 
     SentryAppender.prototype.error = function error(logger, _error) {
@@ -52,8 +64,15 @@ define(['exports'], function (exports) {
       return window.Raven;
     };
 
-    return SentryAppender;
-  }();
+    SentryAppender.prototype.setUserContext = function setUserContext(userContext) {
+      var raven = this.getRaven();
 
+      if (typeof raven !== 'undefined') {
+        raven.setUserContext(userContext);
+      }
+    };
+
+    return SentryAppender;
+  }()) || _class);
   exports.SentryAppender = SentryAppender;
 });

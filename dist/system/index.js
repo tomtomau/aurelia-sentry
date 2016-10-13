@@ -1,9 +1,9 @@
 'use strict';
 
-System.register([], function (_export, _context) {
+System.register(['aurelia-framework', 'aurelia-event-aggregator'], function (_export, _context) {
   "use strict";
 
-  var SentryAppender;
+  var inject, EventAggregator, _dec, _class, USER_CONTEXT_EVENT, SentryAppender;
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -12,11 +12,24 @@ System.register([], function (_export, _context) {
   }
 
   return {
-    setters: [],
+    setters: [function (_aureliaFramework) {
+      inject = _aureliaFramework.inject;
+    }, function (_aureliaEventAggregator) {
+      EventAggregator = _aureliaEventAggregator.EventAggregator;
+    }],
     execute: function () {
-      _export('SentryAppender', SentryAppender = function () {
-        function SentryAppender() {
+      USER_CONTEXT_EVENT = 'sentry:user-context:set';
+
+      _export('SentryAppender', SentryAppender = (_dec = inject(EventAggregator), _dec(_class = function () {
+        function SentryAppender(ea) {
+          var _this = this;
+
           _classCallCheck(this, SentryAppender);
+
+          if (!ea) ea = new EventAggregator();
+          this._eventSubscription = ea.subscribe(USER_CONTEXT_EVENT, function (data) {
+            _this.setUserContext(data);
+          });
         }
 
         SentryAppender.prototype.error = function error(logger, _error) {
@@ -55,8 +68,16 @@ System.register([], function (_export, _context) {
           return window.Raven;
         };
 
+        SentryAppender.prototype.setUserContext = function setUserContext(userContext) {
+          var raven = this.getRaven();
+
+          if (typeof raven !== 'undefined') {
+            raven.setUserContext(userContext);
+          }
+        };
+
         return SentryAppender;
-      }());
+      }()) || _class));
 
       _export('SentryAppender', SentryAppender);
     }

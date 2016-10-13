@@ -3,12 +3,28 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.SentryAppender = undefined;
+
+var _dec, _class;
+
+var _aureliaFramework = require('aurelia-framework');
+
+var _aureliaEventAggregator = require('aurelia-event-aggregator');
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var SentryAppender = function () {
-  function SentryAppender() {
+var USER_CONTEXT_EVENT = 'sentry:user-context:set';
+
+var SentryAppender = (_dec = (0, _aureliaFramework.inject)(_aureliaEventAggregator.EventAggregator), _dec(_class = function () {
+  function SentryAppender(ea) {
+    var _this = this;
+
     _classCallCheck(this, SentryAppender);
+
+    if (!ea) ea = new _aureliaEventAggregator.EventAggregator();
+    this._eventSubscription = ea.subscribe(USER_CONTEXT_EVENT, function (data) {
+      _this.setUserContext(data);
+    });
   }
 
   SentryAppender.prototype.error = function error(logger, _error) {
@@ -47,7 +63,14 @@ var SentryAppender = function () {
     return window.Raven;
   };
 
-  return SentryAppender;
-}();
+  SentryAppender.prototype.setUserContext = function setUserContext(userContext) {
+    var raven = this.getRaven();
 
+    if (typeof raven !== 'undefined') {
+      raven.setUserContext(userContext);
+    }
+  };
+
+  return SentryAppender;
+}()) || _class);
 exports.SentryAppender = SentryAppender;

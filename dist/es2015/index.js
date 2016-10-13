@@ -1,5 +1,17 @@
-export let SentryAppender = class SentryAppender {
-  constructor() {}
+var _dec, _class;
+
+import { inject } from 'aurelia-framework';
+import { EventAggregator } from 'aurelia-event-aggregator';
+
+const USER_CONTEXT_EVENT = 'sentry:user-context:set';
+
+export let SentryAppender = (_dec = inject(EventAggregator), _dec(_class = class SentryAppender {
+  constructor(ea) {
+    if (!ea) ea = new EventAggregator();
+    this._eventSubscription = ea.subscribe(USER_CONTEXT_EVENT, data => {
+      this.setUserContext(data);
+    });
+  }
 
   error(logger, error) {
     let raven = this.getRaven();
@@ -36,4 +48,12 @@ export let SentryAppender = class SentryAppender {
   getRaven() {
     return window.Raven;
   }
-};
+
+  setUserContext(userContext) {
+    let raven = this.getRaven();
+
+    if (typeof raven !== 'undefined') {
+      raven.setUserContext(userContext);
+    }
+  }
+}) || _class);

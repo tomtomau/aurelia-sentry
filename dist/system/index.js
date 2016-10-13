@@ -3,7 +3,7 @@
 System.register(['aurelia-framework', 'aurelia-event-aggregator'], function (_export, _context) {
   "use strict";
 
-  var inject, EventAggregator, _dec, _class, SentryAppender;
+  var inject, EventAggregator, _dec, _class, USER_CONTEXT_EVENT, SentryAppender;
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -18,6 +18,8 @@ System.register(['aurelia-framework', 'aurelia-event-aggregator'], function (_ex
       EventAggregator = _aureliaEventAggregator.EventAggregator;
     }],
     execute: function () {
+      USER_CONTEXT_EVENT = 'sentry:user-context:set';
+
       _export('SentryAppender', SentryAppender = (_dec = inject(EventAggregator), _dec(_class = function () {
         function SentryAppender(ea) {
           var _this = this;
@@ -25,7 +27,7 @@ System.register(['aurelia-framework', 'aurelia-event-aggregator'], function (_ex
           _classCallCheck(this, SentryAppender);
 
           if (!ea) ea = new EventAggregator();
-          this._eventSubscription = ea.subscribe('sentry:user-context:set', function (data) {
+          this._eventSubscription = ea.subscribe(USER_CONTEXT_EVENT, function (data) {
             _this.setUserContext(data);
           });
         }

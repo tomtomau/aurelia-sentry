@@ -13,6 +13,8 @@ var _aureliaEventAggregator = require('aurelia-event-aggregator');
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var USER_CONTEXT_EVENT = 'sentry:user-context:set';
+
 var SentryAppender = (_dec = (0, _aureliaFramework.inject)(_aureliaEventAggregator.EventAggregator), _dec(_class = function () {
   function SentryAppender(ea) {
     var _this = this;
@@ -20,7 +22,7 @@ var SentryAppender = (_dec = (0, _aureliaFramework.inject)(_aureliaEventAggregat
     _classCallCheck(this, SentryAppender);
 
     if (!ea) ea = new _aureliaEventAggregator.EventAggregator();
-    this._eventSubscription = ea.subscribe('sentry:user-context:set', function (data) {
+    this._eventSubscription = ea.subscribe(USER_CONTEXT_EVENT, function (data) {
       _this.setUserContext(data);
     });
   }

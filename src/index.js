@@ -14,35 +14,41 @@ export class SentryAppender {
     });
   }
 
-  error(logger, error) {
+  error(logger, error, ...rest) {
     let raven = this.getRaven();
 
     if (typeof raven !== 'undefined') {
-      raven.captureException(error);
+      raven.captureMessage(error, rest);
     }
   }
 
-  info(logger, info) {
+  info(logger, info, ...rest) {
     let raven = this.getRaven();
 
     if (typeof raven !== 'undefined') {
-      raven.captureMessage(info, { level: 'info' });
+      let data = Object.assign({ level: 'info'}, rest);
+
+      raven.captureMessage(info, data);
     }
   }
 
-  warn(logger, warning) {
+  warn(logger, warning, ...rest) {
     let raven = this.getRaven();
 
     if (typeof raven !== 'undefined') {
-      raven.captureMessage(warning, { level: 'warning' });
+      let data = Object.assign({ level: 'warning'}, rest);
+
+      raven.captureMessage(warning, data);
     }
   }
 
-  debug(logger, debug) {
+  debug(logger, debug, ...rest) {
     let raven = this.getRaven();
 
     if (typeof raven !== 'undefined') {
-      raven.captureMessage(debug, { level: 'info' });
+      let data = Object.assign({ level: 'info'}, rest);
+
+      raven.captureMessage(debug, data);
     }
   }
 

@@ -27,7 +27,7 @@ export class SentryAppender {
   }
 
   debug(logger, message, ...rest) {
-    this.captureMessage('info', message, rest);
+    this.captureMessage('debug', message, rest);
   }
 
   captureMessage(level, message, rest) {

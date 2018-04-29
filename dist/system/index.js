@@ -61,7 +61,7 @@ System.register(['aurelia-framework', 'aurelia-event-aggregator'], function (_ex
             rest[_key4 - 2] = arguments[_key4];
           }
 
-          this.captureMessage('info', message, rest);
+          this.captureMessage('debug', message, rest);
         };
 
         SentryAppender.prototype.captureMessage = function captureMessage(level, message, rest) {

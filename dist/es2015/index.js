@@ -26,7 +26,7 @@ export let SentryAppender = (_dec = inject(EventAggregator), _dec(_class = class
   }
 
   debug(logger, message, ...rest) {
-    this.captureMessage('info', message, rest);
+    this.captureMessage('debug', message, rest);
   }
 
   captureMessage(level, message, rest) {

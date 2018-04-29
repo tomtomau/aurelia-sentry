@@ -15,7 +15,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var USER_CONTEXT_EVENT = 'sentry:user-context:set';
 
-var SentryAppender = (_dec = (0, _aureliaFramework.inject)(_aureliaEventAggregator.EventAggregator), _dec(_class = function () {
+var SentryAppender = exports.SentryAppender = (_dec = (0, _aureliaFramework.inject)(_aureliaEventAggregator.EventAggregator), _dec(_class = function () {
   function SentryAppender(ea) {
     var _this = this;
 
@@ -27,35 +27,46 @@ var SentryAppender = (_dec = (0, _aureliaFramework.inject)(_aureliaEventAggregat
     });
   }
 
-  SentryAppender.prototype.error = function error(logger, _error) {
-    var raven = this.getRaven();
-
-    if (typeof raven !== 'undefined') {
-      raven.captureException(_error);
+  SentryAppender.prototype.error = function error(logger, message) {
+    for (var _len = arguments.length, rest = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+      rest[_key - 2] = arguments[_key];
     }
+
+    this.captureMessage('error', message, rest);
   };
 
-  SentryAppender.prototype.info = function info(logger, _info) {
-    var raven = this.getRaven();
-
-    if (typeof raven !== 'undefined') {
-      raven.captureMessage(_info, { level: 'info' });
+  SentryAppender.prototype.info = function info(logger, message) {
+    for (var _len2 = arguments.length, rest = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+      rest[_key2 - 2] = arguments[_key2];
     }
+
+    this.captureMessage('info', message, rest);
   };
 
-  SentryAppender.prototype.warn = function warn(logger, warning) {
-    var raven = this.getRaven();
-
-    if (typeof raven !== 'undefined') {
-      raven.captureMessage(warning, { level: 'warning' });
+  SentryAppender.prototype.warn = function warn(logger, message) {
+    for (var _len3 = arguments.length, rest = Array(_len3 > 2 ? _len3 - 2 : 0), _key3 = 2; _key3 < _len3; _key3++) {
+      rest[_key3 - 2] = arguments[_key3];
     }
+
+    this.captureMessage('warning', message, rest);
   };
 
-  SentryAppender.prototype.debug = function debug(logger, _debug) {
+  SentryAppender.prototype.debug = function debug(logger, message) {
+    for (var _len4 = arguments.length, rest = Array(_len4 > 2 ? _len4 - 2 : 0), _key4 = 2; _key4 < _len4; _key4++) {
+      rest[_key4 - 2] = arguments[_key4];
+    }
+
+    this.captureMessage('info', message, rest);
+  };
+
+  SentryAppender.prototype.captureMessage = function captureMessage(level, message, rest) {
     var raven = this.getRaven();
 
     if (typeof raven !== 'undefined') {
-      raven.captureMessage(_debug, { level: 'info' });
+      var extra = Object.assign.apply(Object, [{}].concat(rest));
+      var data = { level: level, extra: extra };
+
+      raven.captureMessage(message, data);
     }
   };
 
@@ -73,4 +84,3 @@ var SentryAppender = (_dec = (0, _aureliaFramework.inject)(_aureliaEventAggregat
 
   return SentryAppender;
 }()) || _class);
-exports.SentryAppender = SentryAppender;

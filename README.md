@@ -1,6 +1,6 @@
 # aurelia-sentry
 
-A wrapper around [Sentry](https://sentry.io/)'s [Raven.js](https://github.com/getsentry/raven-js) to be added to Aurelia's LogManager.
+A wrapper around [Sentry](https://sentry.io/)'s [Browser client](https://github.com/getsentry/sentry-javascript/tree/master/packages/browser) to be added to Aurelia's LogManager.
 
 ## Usage
 

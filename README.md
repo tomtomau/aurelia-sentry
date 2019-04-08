@@ -20,6 +20,8 @@ Add the library to your base template - this will catch more errors before Aurel
 <script>Sentry.init({ dsn: '{{ sentry_dsn }}' });</script>
 ```
 
+Then update your main.js in Aurelia to add the SentryAppender as early as possible.
+
 ```javascript
 // main.js
 import { LogManager } from 'aurelia-framework';

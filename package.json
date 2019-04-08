@@ -1,12 +1,15 @@
 {
-    "name": "aurelia-typescript-plugin",
-    "version": "1.0.1",
-    "description": "TypeScript based plugin structure for Aurelia plugins.",
+    "name": "aurelia-sentry",
+    "version": "2.0.0",
+    "description": "An Aurelia Sentry/Raven LogAppender.",
     "keywords": [
-        "skeleton",
-        "plugin",
-        "aurelia"
+        "aurelia",
+        "logging"
     ],
+    "homepage": "http://tomnewby.net",
+    "bugs": {
+        "url": "https://github.com/tomtomau/aurelia-sentry"
+    },
     "main": "dist/commonjs/index.js",
     "types": "dist/commonjs/index.d.ts",
     "files": [
@@ -33,12 +36,8 @@
         "type": "git",
         "url": "git+https://github.com/Vheissu/aurelia-typescript-plugin.git"
     },
-    "author": "Dwayne Charrington <dwaynecharrington@gmail.com>",
+    "author": "Tom Newby <me@tomnewby.net>",
     "license": "MIT",
-    "homepage": "https://github.com/Vheissu/aurelia-typescript-plugin#readme",
-    "bugs": {
-        "url": "https://github.com/Vheissu/aurelia-typescript-plugin/issues"
-    },
     "devDependencies": {
         "@types/jest": "^23.3.10",
         "@types/node": "^10.12.11",
@@ -55,9 +54,14 @@
         "typescript": "^3.2.1"
     },
     "dependencies": {
+        "@sentry/browser": "^5.0.5",
+        "aurelia-event-aggregator": "latest",
         "aurelia-framework": "^1.1.2",
         "aurelia-loader-webpack": "^2.2.1",
         "aurelia-polyfills": "^1.2.2"
+    },
+    "peerDependencies": {
+        "@sentry/browser": "^5.0.5"
     },
     "jspm": {
         "registry": "npm",

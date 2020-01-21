@@ -38,3 +38,22 @@ export function configure(aurelia) {
   aurelia.start().then(() => aurelia.setRoot());
 }
 ```
+
+## Configuration
+
+You may optionally configure a minimum level to be logged:
+
+```javascript
+import { LogManager, ConsoleAppender } from 'aurelia-framework';
+import { SentryAppender } from 'aurelia-sentry';
+
+if (typeof (window as any).Sentry !== 'undefined') {
+  LogManager.addAppender(new SentryAppender({ minLevel: Levels.error}));
+  LogManager.setLevel(LogManager.logLevel.warn);
+} else {
+  LogManager.setLevel(LogManager.logLevel.debug);
+}
+
+LogManager.addAppender(new ConsoleAppender());
+
+```

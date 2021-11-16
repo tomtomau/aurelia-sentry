@@ -11,7 +11,7 @@ export class SentryAppender {
     public static captureEvent(level, message, rest) {
         const extra = Object.assign({}, ...rest);
 
-        Sentry.captureEvent({message, level, extra});
+        Sentry.captureEvent({ message, level, extra });
     }
 
     private minLevel: Levels = Levels.debug;

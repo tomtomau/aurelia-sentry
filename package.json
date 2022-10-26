@@ -1,6 +1,6 @@
 {
     "name": "aurelia-sentry",
-    "version": "3.0.0",
+    "version": "4.0.0",
     "description": "An Aurelia Sentry/Raven LogAppender.",
     "keywords": [
         "aurelia",
@@ -39,24 +39,24 @@
     "license": "MIT",
     "devDependencies": {
         "@types/node": "^10.12.11",
-        "aurelia-pal-nodejs": "^1.0.0-beta.1.0.0",
+        "aurelia-pal-nodejs": "^1.2.0",
         "concurrently": "^4.1.0",
         "gulp": "^3.9.1",
         "prettier": "^1.15.3",
         "rimraf": "^2.6.1",
         "tslint": "^5.11.0",
         "tslint-config-prettier": "^1.17.0",
-        "typescript": "^3.2.1"
+        "typescript": "^4.7.4"
     },
     "dependencies": {
-        "@sentry/browser": "^6.14.0",
+        "@sentry/browser": "^7.16.0",
         "aurelia-event-aggregator": "latest",
         "aurelia-framework": "^1.1.2",
         "aurelia-loader-webpack": "^2.2.1",
         "aurelia-polyfills": "^1.2.2"
     },
     "peerDependencies": {
-        "@sentry/browser": "^5.0.5"
+        "@sentry/browser": "^7.16.0"
     },
     "jspm": {
         "registry": "npm",

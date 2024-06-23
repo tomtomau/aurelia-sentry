@@ -13,7 +13,7 @@ $ yarn add aurelia-sentry
 Add the library to your base template - this will catch more errors before Aurelia has chance to boot.
 
 ```html
-<script src="https://browser.sentry-cdn.com/4.6.6/bundle.min.js"
+<script src="https://browser.sentry-cdn.com/8.0.0/bundle.min.js"
         crossorigin="anonymous"
 ></script>
 <!-- Configure your DSN here too -->
